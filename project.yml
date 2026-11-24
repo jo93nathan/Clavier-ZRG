@@ -1,0 +1,49 @@
+name: ZRGKeyboard
+options:
+  bundleIdPrefix: com.zrg
+  deploymentTarget:
+    iOS: "14.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1"
+targets:
+  ZRGKeyboard:
+    type: application
+    platform: iOS
+    sources: [App]
+    info:
+      path: App-Info.plist
+      properties:
+        CFBundleDisplayName: ZRG Keyboard
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+    settings:
+      base:
+        PRODUCT_NAME: ZRGKeyboard
+        PRODUCT_BUNDLE_IDENTIFIER: com.zrg.zrgkeyboard
+    dependencies:
+      - target: KeyboardExt
+  KeyboardExt:
+    type: app-extension
+    platform: iOS
+    sources: [Keyboard]
+    info:
+      path: Keyboard-Info.plist
+      properties:
+        CFBundleDisplayName: ZRG Keyboard
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.keyboard-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
+          NSExtensionAttributes:
+            IsASCIICapable: true
+            PrefersRightToLeft: false
+            PrimaryLanguage: fr-FR
+            RequestsOpenAccess: false
+    settings:
+      base:
+        PRODUCT_NAME: ZRGKeyboardExt
+        PRODUCT_BUNDLE_IDENTIFIER: com.zrg.zrgkeyboard.keys
+        APPLICATION_EXTENSION_API_ONLY: YES
